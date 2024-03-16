@@ -1,4 +1,4 @@
-local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/Vape.txt")()
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/Vape.txt"))()
 
 local flyEnabled = false
 
@@ -6,10 +6,15 @@ local win = lib:Window("PREVIEW", Color3.fromRGB(44, 120, 224), Enum.KeyCode.Rig
 
 local tab = win:Tab("Tab 1")
 
+tab:Button("Reset Character", function()
+    game.Players.LocalPlayer.Character:BreakJoints()
+    game.Players.LocalPlayer:LoadCharacter()
+end)
+
 tab:Toggle("Fly", false, function(t)
     flyEnabled = t
     if flyEnabled then
-        repeat wait() 
+repeat wait() 
         until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid") 
         local mouse = game.Players.LocalPlayer:GetMouse() 
         repeat wait() until mouse
@@ -46,22 +51,38 @@ tab:Toggle("Fly", false, function(t)
             if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then 
                 bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector 
 
+
+
 *(ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame*
+
+
 
  CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)
 
+
+
 *.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*
+
+
 
 speed 
                 lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r} 
             elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then 
                 bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector 
 
+
+
 *(lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame*
+
+
 
  CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)
 
+
+
 *.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*
+
+
 
 speed 
             else 
@@ -96,7 +117,9 @@ speed
                 ctrl.l = -1 
             elseif key:lower() == "d" then 
                 ctrl.r = 1 
-            end 
+            elseif key:lower() == "r" then -- Added reset character on "r" key press
+                plr.Character:BreakJoints()
+            end
         end) 
         mouse.KeyUp:connect(function(key) 
             if key:lower() == "w" then 
